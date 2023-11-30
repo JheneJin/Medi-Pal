@@ -14,9 +14,9 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-var supportInput = firebase.databse().ref("support")
+var MediPalDB= firebase.database().ref("MediPal");
 
-document.getElementById("contactForm").addEventListener("submit", submitForm);
+document.getElementById("MediPal").addEventListener("submit", submitForm);
 
 function submitForm(e) {
   e.preventDefault();
@@ -36,13 +36,13 @@ function submitForm(e) {
   }, 3000);
 
   //   reset the form
-  document.getElementById("contactForm").reset();
+  document.getElementById("MediPal").reset();
 }
 
 const saveMessages = (name, emailid, msgContent) => {
-  var newContactForm = contactFormDB.push();
+  var newMediPal = MediPalDB.push();
 
-  newContactForm.set({
+  newMediPal.set({
     name: name,
     emailid: emailid,
     msgContent: msgContent,

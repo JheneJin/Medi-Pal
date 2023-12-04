@@ -1,5 +1,6 @@
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
     apiKey: "AIzaSyB5R59W44CUBTFNNhzE_afYxVUBmJrwhek",
     authDomain: "medipal-9cc60.firebaseapp.com",
@@ -12,9 +13,12 @@ const firebaseConfig = {
   };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
+app = firebase.initializeApp(firebaseConfig);
+//const auth = getAuth(app)
 var MediPalDB= firebase.database().ref("MediPal");
+
+// Detect auth state
+
 
 document.getElementById("MediPal").addEventListener("submit", submitForm);
 
@@ -52,3 +56,21 @@ const saveMessages = (name, emailid, msgContent) => {
 const getElementVal = (id) => {
   return document.getElementById(id).value;
 };
+
+function retrieveData() {
+    // Reference the 'MediPal' node in your Firebase Realtime Database
+    // const medipalRef = firebase.database().ref('MediPal');
+    console.log("This is data retrieve");
+    console.log(MediPalDB);
+  
+    // Use the `once()` method to retrieve the data once
+    MediPalDB.once('value', function(snapshot) {
+        // Iterate over each child of the 'MediPal' node
+        snapshot.forEach((childSnapshot) => {
+            const data = childSnapshot.val(); // Get the data for the current child
+
+            console.log(`Name: ${data.name}, Email: ${data.emailid}, Message: ${data.msgContent}`);
+        });
+    });
+}
+retrieveData(); // Call the function to retrieve the data

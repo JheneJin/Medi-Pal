@@ -2,81 +2,84 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
-    apiKey: "AIzaSyB5R59W44CUBTFNNhzE_afYxVUBmJrwhek",
-    authDomain: "medipal-9cc60.firebaseapp.com",
-    databaseURL: "https://medipal-9cc60-default-rtdb.firebaseio.com",
-    projectId: "medipal-9cc60",
-    storageBucket: "medipal-9cc60.appspot.com",
-    messagingSenderId: "675867067235",
-    appId: "1:675867067235:web:0de1e1aab96862a8f84956",
-    measurementId: "G-M0KN12CVFQ"
-  };
+  apiKey: "AIzaSyB5R59W44CUBTFNNhzE_afYxVUBmJrwhek",
+  authDomain: "medipal-9cc60.firebaseapp.com",
+  databaseURL: "https://medipal-9cc60-default-rtdb.firebaseio.com",
+  projectId: "medipal-9cc60",
+  storageBucket: "medipal-9cc60.appspot.com",
+  messagingSenderId: "675867067235",
+  appId: "1:675867067235:web:0de1e1aab96862a8f84956",
+  measurementId: "G-M0KN12CVFQ"
+};
 
 // Initialize Firebase
 app = firebase.initializeApp(firebaseConfig);
-//const auth = getAuth(app)
+// initalize MediPalDB to corresponding databse in firebase realtime db
 var MediPalDB= firebase.database().ref("MediPal");
 
-// Detect auth state
-
-
+//calls the submitForm function when the user clicks on the submit button
 document.getElementById("MediPal").addEventListener("submit", submitForm);
 
-function submitForm(e) {
-  e.preventDefault();
-
-  var name = getElementVal("name");
-  var emailid = getElementVal("emailid");
-  var msgContent = getElementVal("msgContent");
-
-  saveMessages(name, emailid, msgContent);
-
-  //   enable alert
-  document.querySelector(".alert").style.display = "block";
-
-  //   remove the alert
-  setTimeout(() => {
-    document.querySelector(".alert").style.display = "none";
-  }, 3000);
-
-  //   reset the form
-  document.getElementById("MediPal").reset();
-}
-
+//saves msg to db
 const saveMessages = (name, emailid, msgContent) => {
-  var newMediPal = MediPalDB.push();
+//creates reference node in db
+var newMediPal = MediPalDB.push();
 
-  newMediPal.set({
-    name: name,
-    emailid: emailid,
-    msgContent: msgContent,
-  });
+//set values in the new node
+newMediPal.set({
+  name: name,
+  emailid: emailid,
+  msgContent: msgContent,
+});
 };
 
+// gets element by id input
 const getElementVal = (id) => {
-  return document.getElementById(id).value;
+//extract values by id
+return document.getElementById(id).value;
 };
+
+function submitForm(e) {
+//prevents default to customize data handling
+e.preventDefault();
+
+// set inputs for users
+var name = getElementVal("name");
+var emailid = getElementVal("emailid");
+var msgContent = getElementVal("msgContent");
+
+//saves the data from the input into one object
+saveMessages(name, emailid, msgContent);
+
+//enable alert to show that the msg is sent
+document.querySelector(".alert").style.display = "block";
+
+//removes alert after 3 seconds
+setTimeout(() => {
+  document.querySelector(".alert").style.display = "none";
+}, 3000);
+
+//resets the form
+document.getElementById("MediPal").reset();
+}
 
 function retrieveData() {
   // Reference the 'MediPal' node in your Firebase Realtime Database
+  // const medipalRef = firebase.database().ref('MediPal');
   console.log("This is data retrieve");
+  console.log(MediPalDB);
 
   // Use the `once()` method to retrieve the data once
   MediPalDB.once('value', function(snapshot) {
-      // Define a variable to store the HTML content
-      let userData = ''; // Initialize an empty string
-
       // Iterate over each child of the 'MediPal' node
       snapshot.forEach((childSnapshot) => {
-          const data = childSnapshot.val(); // Get the data for the current child
-
-          // Append data to the userData string
-          userData += `<p>Name: ${data.name}, Email: ${data.emailid}, Message: ${data.msgContent}</p>`;
+          // Get the data for the current child
+          const data = childSnapshot.val();
+          //displays data in the console
+          console.log(`Name: ${data.name}, Email: ${data.emailid}, Message: ${data.msgContent}`);
       });
-
-      // Select the userData element in the HTML and set its innerHTML to the generated HTML content
-      document.getElementById('userData').innerHTML = userData;
   });
 }
 
-retrieveData(); // Call the function to retrieve the data
+// Call the function to retrieve the data
+retrieveData();

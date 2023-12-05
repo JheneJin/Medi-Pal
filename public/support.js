@@ -64,20 +64,25 @@ function submitForm(e) {
 }
 
 function retrieveData() {
-    // Reference the 'MediPal' node in your Firebase Realtime Database
-    // const medipalRef = firebase.database().ref('MediPal');
-    console.log("This is data retrieve");
-    console.log(MediPalDB);
-  
-    // Use the `once()` method to retrieve the data once
-    MediPalDB.once('value', function(snapshot) {
-        // Iterate over each child of the 'MediPal' node
-        snapshot.forEach((childSnapshot) => {
-            const data = childSnapshot.val(); // Get the data for the current child
+  // Reference the 'MediPal' node in your Firebase Realtime Database
+  console.log("This is data retrieve");
 
-            console.log(`Name: ${data.name}, Email: ${data.emailid}, Message: ${data.msgContent}`);
-        });
-    });
+  // Use the `once()` method to retrieve the data once
+  MediPalDB.once('value', function(snapshot) {
+      // Define a variable to store the HTML content
+      let userData = ''; // Initialize an empty string
+
+      // Iterate over each child of the 'MediPal' node
+      snapshot.forEach((childSnapshot) => {
+          const data = childSnapshot.val(); // Get the data for the current child
+
+          // Append data to the userData string
+          userData += `<p>Name: ${data.name}, Email: ${data.emailid}, Message: ${data.msgContent}</p>`;
+      });
+
+      // Select the userData element in the HTML and set its innerHTML to the generated HTML content
+      document.getElementById('userData').innerHTML = userData;
+  });
 }
-
-retrieveData(); // Call the function to retrieve the data
+// Call the function to retrieve the data
+retrieveData(); 

@@ -54,10 +54,12 @@ saveMessages(name, emailid, msgContent);
 //enable alert to show that the msg is sent
 document.querySelector(".alert").style.display = "block";
 
-//removes alert after 3 seconds
+//removes alert and reloads page after 3 seconds
 setTimeout(() => {
   document.querySelector(".alert").style.display = "none";
+  location.reload(); 
 }, 3000);
+
 
 //resets the form
 document.getElementById("MediPal").reset();

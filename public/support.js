@@ -14,38 +14,18 @@ const firebaseConfig = {
 
 // Initialize Firebase
 app = firebase.initializeApp(firebaseConfig);
-//const auth = getAuth(app)
+// initalize MediPalDB to corresponding databse in firebase realtime db
 var MediPalDB= firebase.database().ref("MediPal");
 
-// Detect auth state
-
-
+//calls the submitForm function when the user clicks on the submit button
 document.getElementById("MediPal").addEventListener("submit", submitForm);
 
-function submitForm(e) {
-  e.preventDefault();
-
-  var name = getElementVal("name");
-  var emailid = getElementVal("emailid");
-  var msgContent = getElementVal("msgContent");
-
-  saveMessages(name, emailid, msgContent);
-
-  //   enable alert
-  document.querySelector(".alert").style.display = "block";
-
-  //   remove the alert
-  setTimeout(() => {
-    document.querySelector(".alert").style.display = "none";
-  }, 3000);
-
-  //   reset the form
-  document.getElementById("MediPal").reset();
-}
-
+//saves msg to db
 const saveMessages = (name, emailid, msgContent) => {
+  //creates reference node in db
   var newMediPal = MediPalDB.push();
 
+  //set values in the new node
   newMediPal.set({
     name: name,
     emailid: emailid,
@@ -53,9 +33,35 @@ const saveMessages = (name, emailid, msgContent) => {
   });
 };
 
+// gets element by id input
 const getElementVal = (id) => {
+  //extract values by id
   return document.getElementById(id).value;
 };
+
+function submitForm(e) {
+  //prevents default to customize data handling
+  e.preventDefault();
+
+  // set inputs for users
+  var name = getElementVal("name");
+  var emailid = getElementVal("emailid");
+  var msgContent = getElementVal("msgContent");
+
+  //saves the data from the input into one object
+  saveMessages(name, emailid, msgContent);
+
+  //enable alert to show that the msg is sent
+  document.querySelector(".alert").style.display = "block";
+
+  //removes alert after 3 seconds
+  setTimeout(() => {
+    document.querySelector(".alert").style.display = "none";
+  }, 3000);
+
+  //resets the form
+  document.getElementById("MediPal").reset();
+}
 
 function retrieveData() {
     // Reference the 'MediPal' node in your Firebase Realtime Database
@@ -73,4 +79,5 @@ function retrieveData() {
         });
     });
 }
+
 retrieveData(); // Call the function to retrieve the data

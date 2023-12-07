@@ -2,86 +2,111 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB5R59W44CUBTFNNhzE_afYxVUBmJrwhek",
-  authDomain: "medipal-9cc60.firebaseapp.com",
-  databaseURL: "https://medipal-9cc60-default-rtdb.firebaseio.com",
-  projectId: "medipal-9cc60",
-  storageBucket: "medipal-9cc60.appspot.com",
-  messagingSenderId: "675867067235",
-  appId: "1:675867067235:web:0de1e1aab96862a8f84956",
-  measurementId: "G-M0KN12CVFQ"
-};
+    apiKey: "AIzaSyB5R59W44CUBTFNNhzE_afYxVUBmJrwhek",
+    authDomain: "medipal-9cc60.firebaseapp.com",
+    databaseURL: "https://medipal-9cc60-default-rtdb.firebaseio.com",
+    projectId: "medipal-9cc60",
+    storageBucket: "medipal-9cc60.appspot.com",
+    messagingSenderId: "675867067235",
+    appId: "1:675867067235:web:0de1e1aab96862a8f84956",
+    measurementId: "G-M0KN12CVFQ"
+  };
 
 // Initialize Firebase
 app = firebase.initializeApp(firebaseConfig);
-// initalize MediPalDB to corresponding databse in firebase realtime db
-var MediPalDB= firebase.database().ref("MediPal");
+database = firebase.database();
+var medipal = database.ref('MediPal');
 
-//calls the submitForm function when the user clicks on the submit button
-document.getElementById("MediPal").addEventListener("submit", submitForm);
+// Always listening to get the data
+// Retrieve Data in the Database
+/* medipal.on('value', (users) => {
+  console.log('1. Get data from MediPal database:')
+  // Print all users in the database
+  console.log(users.val());
+  // Get each user in the database
+  users.forEach((user) => {
+    // Get a user object
+    const user_ref = user.val();
+    // Get user id, name, email, and message content
+    console.log(`User_id: ${user.key}, 
+                 Name: ${user_ref.name}, 
+                 Email: ${user_ref.emailid}, 
+                 Message: ${user_ref.msgContent}`);
 
-//saves msg to db
-const saveMessages = (name, emailid, msgContent) => {
-//creates reference node in db
-var newMediPal = MediPalDB.push();
+  })
+}, (errorObject) => {
+  console.log('Cannot read the data: ' + errorObject.name);
+});  */
 
-//set values in the new node
-newMediPal.set({
-  name: name,
-  emailid: emailid,
-  msgContent: msgContent,
-});
-};
+// Always listening to get data
+// Another way to get data
+medipal.on('value', getData, errData);
 
-// gets element by id input
-const getElementVal = (id) => {
-//extract values by id
-return document.getElementById(id).value;
-};
+/**
+ * Print added data to the console
+ * @param {data}: data to get
+ */
+function getData(data){
+  console.log('2. Get data from MediPal database:')
+  // Get all data objects
+  var users = data.val();
+  console.log('Object users in MediPal database: ', users);
+  // User id array
+  var users_id = Object.keys(users); 
+  console.log('UserID: ', users_id);
 
-function submitForm(e) {
-//prevents default to customize data handling
-e.preventDefault();
+  // Try to get user 1 id, we can retrieve each user by for loop
+  console.log('User 1: ', users_id[0]);
 
-// set inputs for users
-var name = getElementVal("name");
-var emailid = getElementVal("emailid");
-var msgContent = getElementVal("msgContent");
-
-//saves the data from the input into one object
-saveMessages(name, emailid, msgContent);
-
-//enable alert to show that the msg is sent
-document.querySelector(".alert").style.display = "block";
-
-//removes alert and reloads page after 3 seconds
-setTimeout(() => {
-  document.querySelector(".alert").style.display = "none";
-  location.reload(); 
-}, 3000);
-
-
-//resets the form
-document.getElementById("MediPal").reset();
-}
-
-function retrieveData() {
-  // Reference the 'MediPal' node in your Firebase Realtime Database
-  // const medipalRef = firebase.database().ref('MediPal');
-  console.log("This is data retrieve");
-  console.log(MediPalDB);
-
-  // Use the `once()` method to retrieve the data once
-  MediPalDB.once('value', function(snapshot) {
-      // Iterate over each child of the 'MediPal' node
-      snapshot.forEach((childSnapshot) => {
-          // Get the data for the current child
-          const data = childSnapshot.val();
-          //displays data in the console
-          console.log(`Name: ${data.name}, Email: ${data.emailid}, Message: ${data.msgContent}`);
-      });
+  // Using for loop to get all users
+  data.forEach((user) => {
+    // Get a user object
+    const user_ref = user.val();
+    // Get user id, name, email, and message content
+    console.log(`User_id: ${user.key}, 
+                 Name: ${user_ref.name}, 
+                 Email: ${user_ref.emailid}, 
+                 Message: ${user_ref.msgContent}`);
   });
 }
 
-// Call the function to retrieve the data
-retrieveData();
+function errData(err){
+  console.log('Cannot read the data: ' + errorObject.name);
+}
+
+document.getElementById("MediPal").addEventListener("submit", submitForm);
+
+function submitForm(e) {
+  e.preventDefault();
+
+  var name = getElementVal("name");
+  var emailid = getElementVal("emailid");
+  var msgContent = getElementVal("msgContent");
+
+  saveMessages(name, emailid, msgContent);
+
+  // enable alert to show that the msg is sent
+  document.querySelector(".alert").style.display = "block";
+
+  // removes alert and reloads page after 3 seconds
+  setTimeout(() => {
+    document.querySelector(".alert").style.display = "none";
+  }, 3000);
+
+  // reset the form
+  document.getElementById("MediPal").reset();
+}
+
+const saveMessages = (name, emailid, msgContent) => {
+  var newMediPal = medipal.push();
+  // firebase.database().ref('MediPal/' + name).set()
+  newMediPal.set({
+    name: name,
+    emailid: emailid,
+    msgContent: msgContent,
+  });
+};
+
+const getElementVal = (id) => {
+  return document.getElementById(id).value;
+};

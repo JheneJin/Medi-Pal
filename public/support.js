@@ -15,6 +15,8 @@ const firebaseConfig = {
 // Initialize Firebase
 app = firebase.initializeApp(firebaseConfig);
 database = firebase.database();
+
+// initialize medipal to corresponding database in firebase realtime db
 var medipal = database.ref('MediPal');
 
 // Always listening to get the data
@@ -74,15 +76,37 @@ function errData(err){
   console.log('Cannot read the data: ' + errorObject.name);
 }
 
+// calls the sumitForm function when user clicks on the submit button
 document.getElementById("MediPal").addEventListener("submit", submitForm);
 
+// saves data to database
+const saveMessages = (name, emailid, msgContent) => {
+  // creates reference nod in database
+  var newMediPal = medipal.push();
+  // firebase.database().ref('MediPal/' + name).set()
+  newMediPal.set({
+    name: name,
+    emailid: emailid,
+    msgContent: msgContent,
+  });
+};
+
+// gets element by id input
+const getElementVal = (id) => {
+  // extract values by id
+  return document.getElementById(id).value;
+};
+
 function submitForm(e) {
+  // prevents defaults to customize data handling
   e.preventDefault();
 
+  // Set inputs for users
   var name = getElementVal("name");
   var emailid = getElementVal("emailid");
   var msgContent = getElementVal("msgContent");
 
+  // saves the data from the input into one object
   saveMessages(name, emailid, msgContent);
 
   // enable alert to show that the msg is sent
@@ -93,20 +117,8 @@ function submitForm(e) {
     document.querySelector(".alert").style.display = "none";
   }, 3000);
 
-  // reset the form
+  // resets the form
   document.getElementById("MediPal").reset();
 }
 
-const saveMessages = (name, emailid, msgContent) => {
-  var newMediPal = medipal.push();
-  // firebase.database().ref('MediPal/' + name).set()
-  newMediPal.set({
-    name: name,
-    emailid: emailid,
-    msgContent: msgContent,
-  });
-};
 
-const getElementVal = (id) => {
-  return document.getElementById(id).value;
-};

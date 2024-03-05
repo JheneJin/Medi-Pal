@@ -10,6 +10,7 @@ class MedicineInfoScreen extends StatelessWidget {
     this.medicineBrandID = "ckRw2atQibDjcQb1ik7z",
   });
 
+  //gets info from medicineType in fb collection
   Future<Map<String, dynamic>> _getAllMedicineTypes(
       String medicineTypeID,
       ) async {
@@ -23,6 +24,7 @@ class MedicineInfoScreen extends StatelessWidget {
     }
   }
 
+  //gets info from medicine Brand in fb collection
   Future<Map<String, dynamic>> _getMedicineBrandInfo(
       String medicineBrandID,
       String medicineBrand,
@@ -54,22 +56,26 @@ class MedicineInfoScreen extends StatelessWidget {
             } else if (snapshot.data == null || snapshot.data!.isEmpty) {
               return Text("No data available for any medicines");
             } else {
+              //set medicine to data
               var medicines = snapshot.data!;
-              var medicineTypes = medicines.keys.toList()..sort();
+              //set medicinetypes and sorts the array
+              var medicineTypeArr = medicines.keys.toList()..sort();
               return ListView.builder(
-                itemCount: medicineTypes.length,
+                itemCount: medicineTypeArr.length,
                 itemBuilder: (context, index) {
-                  var medicineName = medicineTypes[index];
-                  var medicineBrand = medicines[medicineName];
+                  //get each medicine type form firebase
+                  var medicineType = medicineTypeArr[index];
+                  //get each value of medicine brand from medicineNamme
+                  var medicineBrand = medicines[medicineType];
 
                   // Check if 'medicineBrand' is actually a List
                   if (medicineBrand is! List) {
-                    medicineBrand = ["Invalid data format for $medicineName"];
+                    medicineBrand = ["Invalid data format for $medicineType"];
                   }
 
                   return ExpansionTile(
                     title: Text(
-                      medicineName,
+                      medicineType,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     children: List<Widget>.from(medicineBrand.map((item) {

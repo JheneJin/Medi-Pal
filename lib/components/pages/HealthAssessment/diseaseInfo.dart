@@ -17,26 +17,18 @@ class DiseaseInfoScreen extends StatelessWidget {
       // Normalize keys by removing spaces and apostrophes
       diseaseData = diseaseData.map((key, value) =>
           MapEntry(key.toLowerCase().replaceAll(' ', '').replaceAll("'", ""), value));
-      
-      // Normalize userDisease for comparison
-      var normalizedUserDisease = userDisease.toLowerCase().replaceAll(' ', '').replaceAll("'", "");
-
-      // Check if the normalized userDisease exists in diseaseData
-      if (!diseaseData.containsKey(normalizedUserDisease)) {
-        throw Exception("Data not available for $userDisease");
-      }
-
       return diseaseData;
     } else {
-      throw Exception("Document not found");
+      throw Exception("Document not found for $userDisease");
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    String alphaDisease = userDisease[0].toUpperCase() + userDisease.substring(1);
     return Scaffold(
       appBar: AppBar(
-        title: Text(userDisease),
+        title: Text(alphaDisease),
       ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: _getAllDiseaseInfo(userDiseaseID),
@@ -47,30 +39,58 @@ class DiseaseInfoScreen extends StatelessWidget {
             );
           } else if (snapshot.hasData) {
             var diseaseData = snapshot.data!;
-
-            if (!diseaseData.containsKey(userDisease)) {
+            String _disease = userDisease.toLowerCase().replaceAll(' ', '').replaceAll("'", "");
+            if (!diseaseData.containsKey(_disease)) {
               return Center(
                 child: Text("Data not available for $userDisease"),
               );
             }
 
-            var diseaseInfo = diseaseData[userDisease] as List<dynamic>;
-            var formattedData = _formatData(diseaseInfo);
-            return ListView.builder(
-              itemCount: formattedData.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Text(
-                        formattedData[index],
-                        style: TextStyle(fontSize: 16.0),
+            var formattedData = _formatData(diseaseData[_disease]);
+            List<String> foodRec = formattedData[0];
+            List<String> foodAvoid = formattedData[1];
+
+            return ListView(
+              padding: EdgeInsets.all(20),
+              children: [
+                Card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          "Foods Recommended:",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _buildFoodList(foodRec),
+                      ),
+                    ],
                   ),
-                );
-              },
+                ),
+                SizedBox(height: 20),
+                Card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          "Foods to Avoid:",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: _buildFoodList(foodAvoid),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             );
           } else {
             return Center(
@@ -82,28 +102,37 @@ class DiseaseInfoScreen extends StatelessWidget {
     );
   }
 
-  List<String> _formatData(List<dynamic> data) {
-    List<String> foodRec = [];
-    List<String> foodAvoid = [];
-    int avoidIndex = 0;
-
-    for (int i = 0; i < data.length; i++) {
-      if (data[i] == ("Foods to Avoid:")) {
-        avoidIndex = i;
-      }
-    }
-
-    for (int i = 0; i < avoidIndex; i++) {
-      foodRec.add(data[i].toString());
-    }
-
-    for (int i = avoidIndex; i < data.length; i++) {
-      foodAvoid.add(data[i].toString());
-    }
-
-    foodRec.add("\n");
-    List<String> formatList = foodRec + foodAvoid;
-    return formatList;
+  List<Widget> _buildFoodList(List<String> foods) {
+    return foods.map((food) => Padding(
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      child: Text(food),
+    )).toList();
   }
-}
 
+List<List<String>> _formatData(List<dynamic> data) {
+  List<String> foodRec = [];
+  List<String> foodAvoid = [];
+  int avoidIndex = 0;
+
+  for (int i = 0; i < data.length; i++) {
+    if (data[i] == "Foods to Avoid:") {
+      avoidIndex = i;
+      break;
+    }
+
+    if (data[i] != "Foods Recommended:") {
+      String bp = (data[i]).toString();
+      foodRec.add(bp);
+    }
+  }
+
+  for (int i = avoidIndex; i < data.length; i++) {
+    if (data[i] != "Foods to Avoid:") {
+      String bp = (data[i]).toString();
+      foodAvoid.add(bp);
+    }
+  }
+
+  return [foodRec, foodAvoid];
+}
+}

@@ -23,25 +23,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\vinji\\OneDrive\\Documents\\GitHub\\Medi-Pal\\android\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3,14",
-                        "startColumns": "4,4",
-                        "startOffsets": "176,832",
-                        "endLines": "7,16",
-                        "endColumns": "12,12",
-                        "endOffsets": "483,998"
-                    },
-                    "to": {
-                        "startLines": "121,125",
-                        "startColumns": "4,4",
-                        "startOffsets": "8641,8822",
-                        "endLines": "124,127",
-                        "endColumns": "12,12",
-                        "endOffsets": "8817,8986"
-                    }
-                },
-                {
                     "source": "C:\\Users\\vinji\\.gradle\\caches\\transforms-3\\73bd5abb85e4f42d0145682b290e7759\\transformed\\jetified-play-services-basement-18.1.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "4,7",
@@ -59,20 +40,22 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\vinji\\OneDrive\\Documents\\GitHub\\Medi-Pal\\android\\app\\src\\main\\res\\values\\colors.xml",
+                    "source": "C:\\Users\\vinji\\OneDrive\\Desktop\\Medi-Pal\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "57",
-                        "endColumns": "56",
-                        "endOffsets": "109"
+                        "startLines": "3,14",
+                        "startColumns": "4,4",
+                        "startOffsets": "176,832",
+                        "endLines": "7,16",
+                        "endColumns": "12,12",
+                        "endOffsets": "483,998"
                     },
                     "to": {
-                        "startLines": "21",
-                        "startColumns": "4",
-                        "startOffsets": "1332",
-                        "endColumns": "56",
-                        "endOffsets": "1384"
+                        "startLines": "121,125",
+                        "startColumns": "4,4",
+                        "startOffsets": "8641,8822",
+                        "endLines": "124,127",
+                        "endColumns": "12,12",
+                        "endOffsets": "8817,8986"
                     }
                 },
                 {
@@ -92,6 +75,23 @@
                         "endLines": "7,8,9,10,81,146,150,296,308,316",
                         "endColumns": "11,59,51,44,59,24,24,24,24,24",
                         "endOffsets": "339,399,451,496,5165,10078,10209,14898,15338,15647"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\vinji\\OneDrive\\Desktop\\Medi-Pal\\android\\app\\src\\main\\res\\values\\colors.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "57",
+                        "endColumns": "56",
+                        "endOffsets": "109"
+                    },
+                    "to": {
+                        "startLines": "21",
+                        "startColumns": "4",
+                        "startOffsets": "1332",
+                        "endColumns": "56",
+                        "endOffsets": "1384"
                     }
                 },
                 {

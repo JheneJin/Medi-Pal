@@ -22,11 +22,11 @@ class _InputScreenState extends State<InputScreen> {
     if (_inputValue.isNotEmpty) {
       //add thhe users input to firestore with a timestamp
       //userInput is the collection name
-      String _disease = _inputValue.toLowerCase().replaceAll(' ', '').replaceAll("'", "");
+
 
       _firestore.collection("userInput").add({
         //set inputValue to be saved in userInput collection
-        "input": _disease,
+        "input": _inputValue,
         //set the timestamp in firestore when input is collected
         "timestamp": DateTime.now(),
       }).then((value) {
@@ -36,7 +36,7 @@ class _InputScreenState extends State<InputScreen> {
             MaterialPageRoute(
                 builder: (context) =>
                 //passes in the userInput
-                DiseaseInfoScreen(userDisease: _disease)));
+                DiseaseInfoScreen(userDisease: _inputValue)));
         //catch error just in case there is a failure with the input
       }).catchError((error) {
         //prints error

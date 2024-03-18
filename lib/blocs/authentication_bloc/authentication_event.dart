@@ -46,7 +46,6 @@ abstract class AuthenticationEvent extends Equatable {
 
   //empty constructor
   const AuthenticationEvent();
-
   @override
   List<Object> get props => [];
 }

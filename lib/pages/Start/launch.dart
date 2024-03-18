@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medipal/components/theme/colors.dart';
 import 'package:medipal/pages/LogIn/login.dart';
 import 'package:medipal/pages/Register/register.dart';
 
 import '../../blocs/authentication_bloc/authentication_bloc.dart';
 import '../../blocs/log_in_bloc/log_in_bloc.dart';
-import '../../blocs/register_bloc/bloc/register_bloc.dart';
+import '../../blocs/register_bloc/register_bloc.dart';
 
 class LaunchScreen extends StatefulWidget {
   const LaunchScreen({super.key});
@@ -76,19 +75,18 @@ class _LaunchScreenState extends State<LaunchScreen> with TickerProviderStateMix
 											),
 										),
 									]
-								),
-                
+								),              
 								Expanded(
 									child: TabBarView(
 										controller: tabController,
 										children: [
-											BlocProvider<LogInBloc>(
+                      BlocProvider<LogInBloc>(
 												create: (context) => LogInBloc(
 													userRepository: context.read<AuthenticationBloc>().userRepository
 												),
 												child: const LogInScreen(),
 											),
-											BlocProvider<RegisterBloc>(
+                      BlocProvider<RegisterBloc>(
 												create: (context) => RegisterBloc(
 													userRepository: context.read<AuthenticationBloc>().userRepository
 												),

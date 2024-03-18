@@ -104,17 +104,6 @@ class StartAppState extends State<StartApp> {
               );
             },
           ),
-          actions: [
-							IconButton(
-								onPressed: () {
-									context.read<LogInBloc>().add(const LogOutRequired());
-								}, 
-								icon: Icon(
-									UniconsLine.x,
-									color: Theme.of(context).colorScheme.onPrimary,
-								)
-							)
-						],
         ),
         drawer: SizedBox(
             width: MediaQuery.of(context).size.width * 0.2,

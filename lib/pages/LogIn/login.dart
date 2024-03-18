@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unicons/unicons.dart';
+import 'package:user_repository/user_repository.dart';
 
 import '../../blocs/log_in_bloc/log_in_bloc.dart';
 import '../../components/my_text_field.dart';
 import '../../components/strings.dart';
+import 'resetPass.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -41,14 +43,15 @@ class _LogInScreenState extends State<LogInScreen> {
 					});
 				}
       },
+    
     child: Form(
       key: _formKey,
+      child: Center(
       child: Column(  //email and password input
         children: [
           const SizedBox(height: 30),  
           SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
-
+            width: MediaQuery.of(context).size.width * 0.9,
             child: MyTextField(   //validator
               controller: emailController,
               hintText: 'E-mail',
@@ -68,7 +71,7 @@ class _LogInScreenState extends State<LogInScreen> {
           const SizedBox(height: 10),  
 
           SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
+            width: MediaQuery.of(context).size.width * 0.9,
             child: MyTextField(
               controller: passwordController,
               hintText: 'Password',
@@ -100,15 +103,15 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
           ),
 
-          const SizedBox(height: 40),  
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),  
           !logInRequired ? SizedBox(
             width: MediaQuery.of(context).size.width * 0.9,
             height: 50,
               child: TextButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    context.read<LogInBloc>().add(LogInRequired(
-                      emailController.text,
+										context.read<LogInBloc>().add(LogInRequired(
+											emailController.text,
                       passwordController.text));
                   }
                 },
@@ -118,6 +121,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60))),
+                    
                   child: const Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 25, vertical: 5),
@@ -130,10 +134,38 @@ class _LogInScreenState extends State<LogInScreen> {
                        fontWeight: FontWeight.w600),
                      ),
                 )),
-          )
-          : const CircularProgressIndicator()
+          ): const CircularProgressIndicator()
+
+          // Row(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               Text('Forgot Password?',
+          //                   style: simpleTextStyle()),
+          //               GestureDetector(
+          //                 onTap: () {
+          //                   Navigator.push(
+          //                       context,
+          //                       MaterialPageRoute(
+          //                           builder: (context) => ResetPassScreen()));
+          //                 },
+          //                 child: Container(
+          //                   padding: EdgeInsets.symmetric(vertical: 8.0),
+          //                   child: Text(
+          //                     'Reset Password',
+          //                     style: TextStyle(
+          //                       fontSize: 17.0,
+          //                       fontWeight: FontWeight.bold,
+          //                       color: Colors.orange,
+          //                       decoration: TextDecoration.underline,
+          //                     ),
+          //                   ),
+          //                 ),
+          //               )
+          //             ],
+          //           ),
         ],
-      )),
+      ),),
+    ),
     );
   }
 

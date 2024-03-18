@@ -13,8 +13,8 @@ class AppColors {
   const AppColors();
 }*/
 
-const PrimaryColor = const Color(0xFFb71c1c);
-const PrimaryColorLight = const Color(0xFFf05545);
+const PrimaryColor = const Color(0x9EA0A1FA);
+const PrimaryColorLight = Color(0xFFE1DFFF);
 const PrimaryColorDark = const Color(0xFF7f0000);
 
 const SecondaryColor = const Color(0xFFb2dfdb);

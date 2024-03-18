@@ -32,6 +32,7 @@ class MyUserModel extends Equatable{
       name: name ?? this.name,
     );
   }
+  
   /// Determine whether the current user is empty.
   bool get isEmpty => this == MyUserModel.empty;
 

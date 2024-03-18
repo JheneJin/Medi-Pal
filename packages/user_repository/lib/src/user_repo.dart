@@ -16,6 +16,6 @@ abstract class UserRepository {
 
 	Future<void> setUserData(MyUserModel user);
 
-	Future<MyUserModel> getMyUser(String myUserEmail);
+	Future<MyUserModel> getMyUser(String myUser);
 
 }

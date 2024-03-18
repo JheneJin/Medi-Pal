@@ -16,7 +16,7 @@ class HomeState extends State<Home> {
       body: Center(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Text('Home Page')]),
+            children: <Widget>[Text('Home Page')]),  //Welcome $name!
       ),
     );
   }

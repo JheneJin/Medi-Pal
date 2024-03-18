@@ -28,6 +28,12 @@ class FirebaseUserRepository implements UserRepository {
   //implement register
   @override
   Future<MyUserModel> register(MyUserModel myUser, String password) async {
+    // try {
+    //   UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+		// 	  email: email,
+		// 	  password: password
+		//   );
+		// return userCredential;
     try {
       UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
 			  email: myUser.email,

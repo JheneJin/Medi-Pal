@@ -53,6 +53,7 @@ MERGED from [:firebase_auth] C:\Users\tramb\MPflutter\Medi-Pal\build\firebase_au
 MERGED from [:firebase_storage] C:\Users\tramb\MPflutter\Medi-Pal\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-17:12
 MERGED from [:cloud_firestore] C:\Users\tramb\MPflutter\Medi-Pal\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-17:12
 MERGED from [:firebase_core] C:\Users\tramb\MPflutter\Medi-Pal\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-17:12
+MERGED from [:flutter_keyboard_visibility] C:\Users\tramb\MPflutter\Medi-Pal\build\flutter_keyboard_visibility\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\tramb\.gradle\caches\transforms-3\7773f36f52a3f5a5d7db01984674d493\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:17:1-75:12
 MERGED from [com.google.firebase:firebase-firestore:24.10.1] C:\Users\tramb\.gradle\caches\transforms-3\b27b2ceebc9f7b2fa5454a028a46ae4a\transformed\jetified-firebase-firestore-24.10.1\AndroidManifest.xml:2:1-26:12
 MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\tramb\.gradle\caches\transforms-3\b8ac128ec59eeff6f1a8c2d9c5aa44f2\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:15:1-39:12
@@ -121,6 +122,8 @@ MERGED from [:cloud_firestore] C:\Users\tramb\MPflutter\Medi-Pal\build\cloud_fir
 MERGED from [:cloud_firestore] C:\Users\tramb\MPflutter\Medi-Pal\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:firebase_core] C:\Users\tramb\MPflutter\Medi-Pal\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:firebase_core] C:\Users\tramb\MPflutter\Medi-Pal\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_keyboard_visibility] C:\Users\tramb\MPflutter\Medi-Pal\build\flutter_keyboard_visibility\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_keyboard_visibility] C:\Users\tramb\MPflutter\Medi-Pal\build\flutter_keyboard_visibility\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\tramb\.gradle\caches\transforms-3\7773f36f52a3f5a5d7db01984674d493\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:21:5-23:64
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\tramb\.gradle\caches\transforms-3\7773f36f52a3f5a5d7db01984674d493\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:21:5-23:64
 MERGED from [com.google.firebase:firebase-firestore:24.10.1] C:\Users\tramb\.gradle\caches\transforms-3\b27b2ceebc9f7b2fa5454a028a46ae4a\transformed\jetified-firebase-firestore-24.10.1\AndroidManifest.xml:6:5-44

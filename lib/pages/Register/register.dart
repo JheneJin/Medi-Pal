@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unicons/unicons.dart';
 import 'package:user_repository/user_repository.dart';
 
-import '../../blocs/register_bloc/bloc/register_bloc.dart';
+import '../../blocs/register_bloc/register_bloc.dart';
 import '../../components/my_text_field.dart';
 import '../../components/strings.dart';
 
@@ -54,14 +54,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             children: [
               const SizedBox(height: 30), 
-              Padding(                                       //full name
-                padding: const EdgeInsets.all(12),
+              SizedBox(                                       //full name
+                width: MediaQuery.of(context).size.width * 0.9,
 			  				child: MyTextField(
                   controller: nameController,
 										hintText: 'Full Name',
 										obscureText: false,
 										keyboardType: TextInputType.name,
 										prefixIcon: const Icon(UniconsLine.user),
+                    //helperText: 'A valid email e.g. joe.doe@gmail.com',
 										validator: (val) {
 											if(val!.isEmpty) {
 												return 'Please complete this field';													
@@ -72,9 +73,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 										}
                 )
               ),
-              const SizedBox(height: 2),
-              Padding(                                        //email
-                padding: const EdgeInsets.all(12),
+              const SizedBox(height: 10),  
+
+              SizedBox(                                        //email
+                width: MediaQuery.of(context).size.width * 0.9,
 			  				child: MyTextField(
 			  					controller: emailController,
 			  					hintText: 'E-mail',
@@ -92,72 +94,72 @@ class _RegisterScreenState extends State<RegisterScreen> {
 			  				),
 			  			),
 
-              const SizedBox(height: 2),
-              Padding(                                       //bday
-                padding: const EdgeInsets.all(12),
-			  				child: MyTextField(
-			  					controller: birthdayController,
-			  					hintText: 'Birthday',
-			  					obscureText: false,
-			  					keyboardType: TextInputType.datetime,
-			  					prefixIcon: const Icon(UniconsLine.calender),
-			  					validator: (val) {
-			  						if(val!.isEmpty) {
-			  							return 'Please fill in this field';													
-			  						} else if(!emailRexExp.hasMatch(val)) {
-			  							return 'Please enter a valid date';
-			  						}
-			  						return null;
-			  					}
-			  				),
-			  			),
+              // const SizedBox(height: 2),
+              // Padding(                                       //bday
+              //   padding: const EdgeInsets.all(12),
+			  			// 	child: MyTextField(
+			  			// 		controller: birthdayController,
+			  			// 		hintText: 'Birthday',
+			  			// 		obscureText: false,
+			  			// 		keyboardType: TextInputType.datetime,
+			  			// 		prefixIcon: const Icon(UniconsLine.calender),
+			  			// 		validator: (val) {
+			  			// 			if(val!.isEmpty) {
+			  			// 				return 'Please fill in this field';													
+			  			// 			// } else if(!birthdayRexExp.hasMatch(val)) {
+			  			// 			// 	return 'Please enter a valid date';
+			  			// 			}
+			  			// 			return null;
+			  			// 		}
+			  			// 	),
+			  			// ),
 
-              const SizedBox(height: 2),
-              //Row(children: [
-                 Padding(                                       //height
-                padding: const EdgeInsets.all(12),
-			  				child: MyTextField(
-			  					controller: heightController,
-			  					hintText: 'Height',
-			  					obscureText: false,
-			  					keyboardType: TextInputType.datetime,
-			  					prefixIcon: const Icon(UniconsLine.ruler),
-			  					validator: (val) {
-			  						if(val!.isEmpty) {
-			  							return 'Please fill in this field';													
-			  						} else if(!emailRexExp.hasMatch(val)) {
-			  							return 'Please enter a valid number';
-			  						}
-			  						return null;
-			  					}
-			  				),
-			  			),
+              // const SizedBox(height: 2),
+              // //Row(children: [
+              //    Padding(                                       //height
+              //   padding: const EdgeInsets.all(12),
+			  			// 	child: MyTextField(
+			  			// 		controller: heightController,
+			  			// 		hintText: 'Height',
+			  			// 		obscureText: false,
+			  			// 		keyboardType: TextInputType.numberWithOptions(),
+			  			// 		prefixIcon: const Icon(UniconsLine.ruler),
+			  			// 		validator: (val) {
+			  			// 			if(val!.isEmpty) {
+			  			// 				return 'Please fill in this field';													
+			  			// 			// } else if(!emailRexExp.hasMatch(val)) {
+			  			// 			// 	return 'Please enter a valid number';
+			  			// 			 }
+			  			// 			return null;
+			  			// 		}
+			  			// 	),
+			  			// ),
 
-              const SizedBox(height: 2),
-              Padding(                                       //weight
-                padding: const EdgeInsets.all(12),
-			  				child: MyTextField(
-                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
-			  					controller: weightController,
-			  					hintText: 'Weight',
-			  					obscureText: false,
-			  					keyboardType: TextInputType.number,
-			  					prefixIcon: const Icon(UniconsLine.balance_scale),
-			  					validator: (val) {
-			  						if(val!.isEmpty) {
-			  							return 'Please fill in this field';													
-			  						} else if(!emailRexExp.hasMatch(val)) {
-			  							return 'Please enter a valid number';
-			  						}
-			  						return null;
-			  					}
-			  				),
-			  			),
+              // const SizedBox(height: 2),
+              // Padding(                                       //weight
+              //   padding: const EdgeInsets.all(12),
+			  			// 	child: MyTextField(
+              //     maxLengthEnforcement: MaxLengthEnforcement.enforced,
+			  			// 		controller: weightController,
+			  			// 		hintText: 'Weight',
+			  			// 		obscureText: false,
+			  			// 		keyboardType: TextInputType.number,
+			  			// 		prefixIcon: const Icon(UniconsLine.balance_scale),
+			  			// 		validator: (val) {
+			  			// 			if(val!.isEmpty) {
+			  			// 				return 'Please fill in this field';													
+			  			// 			// } else if(!emailRexExp.hasMatch(val)) {
+			  			// 			// 	return 'Please enter a valid number';
+			  			// 			}
+			  			// 			return null;
+			  			// 		}
+			  			// 	),
+			  			// ),
               //],),
 
-              const SizedBox(height: 2),
-              Padding(                                       //password
-                padding: const EdgeInsets.all(12),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
 			  				child: MyTextField(
 			  					controller: passwordController,
 			  					hintText: 'Password',
@@ -223,11 +225,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 													}
 												});
 											},
-											icon: Icon(UniconsLine.eye),
+											icon: Icon(UniconsLine.eye_slash),
 										),
 										validator: (val) {
 											if(val!.isEmpty) {
-												return 'Please enter in your e=mail';			
+												return 'Please enter in your password';			
 											} else if(!passwordRexExp.hasMatch(val)) {
 												return 'Please enter a valid password';
 											}
@@ -238,7 +240,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               //Register 
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 								!registerRequired ? SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.5,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: 50,
 											child: TextButton(
                         onPressed: () {
 													if (_formKey.currentState!.validate()) {

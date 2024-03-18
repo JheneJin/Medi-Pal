@@ -8,7 +8,7 @@ import 'package:unicons/unicons.dart';
 import 'package:medipal/pages/Home/home.dart';
 import 'package:medipal/pages/Notification/notification.dart';
 import 'package:medipal/pages/Profile/profile.dart';
-import 'package:medipal/pages/Setting/setting.dart';
+import 'package:medipal/pages/Settings/settings.dart';
 
 // Navigation Item or Routing Pages list contains all the pages in the navigation bars.
 class NavigationItem {
@@ -54,8 +54,8 @@ class NavigationItem {
             title: Text('Favorites')),
         // 7
         NavigationItem(
-            page: Setting(),
+            page: SettingsScreen(),
             icon: Icon(UniconsLine.setting),
-            title: Text('Setting')),
+            title: Text('Settings')),
       ];
 }

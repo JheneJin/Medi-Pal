@@ -22,6 +22,8 @@ class _InputScreenState extends State<InputScreen> {
     if (_inputValue.isNotEmpty) {
       //add thhe users input to firestore with a timestamp
       //userInput is the collection name
+
+
       _firestore.collection("userInput").add({
         //set inputValue to be saved in userInput collection
         "input": _inputValue,

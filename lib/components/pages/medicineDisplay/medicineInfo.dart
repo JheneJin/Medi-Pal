@@ -11,9 +11,7 @@ class MedicineInfoScreen extends StatelessWidget {
   });
 
   //gets info from medicineType in fb collection
-  Future<Map<String, dynamic>> _getAllMedicineTypes(
-      String medicineTypeID,
-      ) async {
+  Future<Map<String, dynamic>> _getAllMedicineTypes(String medicineTypeID) async {
     var collection = FirebaseFirestore.instance.collection("Medicine Types");
     var document = await collection.doc(medicineTypeID).get();
 
@@ -26,9 +24,7 @@ class MedicineInfoScreen extends StatelessWidget {
 
   //gets info from medicine Brand in fb collection
   Future<Map<String, dynamic>> _getMedicineBrandInfo(
-      String medicineBrandID,
-      String medicineBrand,
-      ) async {
+      String medicineBrandID, String medicineBrand) async {
     var collection = FirebaseFirestore.instance.collection("Medicine Brands");
     var document = await collection.doc(medicineBrandID).get();
 
@@ -92,7 +88,10 @@ class MedicineInfoScreen extends StatelessWidget {
                             var array = brandInfo[item] as List?;
                             if (array != null) {
                               return ListTile(
-                                title: Text(item),
+                                title: Text(
+                                  "•" + item,
+                                  style: TextStyle(fontSize: 16), 
+                                ),
                                 onTap: () {
                                   // Navigate to MedicineBrandScreen
                                   Navigator.push(
@@ -100,8 +99,7 @@ class MedicineInfoScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                       builder: (context) => MedicineBrandScreen(
                                         brandName: item,
-                                        brandInfo: array.cast<
-                                            String>(), // Cast to List<String>
+                                        brandInfo: array.cast<String>(),
                                       ),
                                     ),
                                   );
@@ -125,6 +123,7 @@ class MedicineInfoScreen extends StatelessWidget {
   }
 }
 
+
 class MedicineBrandScreen extends StatelessWidget {
   final String brandName;
   final List<String> brandInfo;
@@ -141,7 +140,7 @@ class MedicineBrandScreen extends StatelessWidget {
         itemCount: brandInfo.length,
         itemBuilder: (context, index) {
           return ListTile(
-            title: Text(brandInfo[index]),
+            title: Text("•" + brandInfo[index]),
           );
         },
       ),

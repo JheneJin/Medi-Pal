@@ -32,7 +32,7 @@ class DiseaseInfoScreen extends StatelessWidget {
   @override
   //build th diseaseInfo screen
   Widget build(BuildContext context) {
-    String alphaDisease = userDisease[0].toUpperCase() + userDisease.substring(1);
+    String alphaDisease = alpha(userDisease);
     return Scaffold(
       appBar: AppBar(
         title: Text(alphaDisease),
@@ -159,4 +159,17 @@ List<List<String>> _formatData(List<dynamic> data) {
   //return a matrix
   return [foodRec, foodAvoid];
 }
+String alpha(String userDisease) {
+  for (int i = 0; i < userDisease.length; i++) {
+    if (userDisease[i] == " ") {
+      String alphaDisease = userDisease[0].toUpperCase() + userDisease.substring(1, i) + " " + userDisease[i + 1].toUpperCase() +
+      userDisease.substring(i + 2, userDisease.length);
+      return alphaDisease;
+    }
+  }
+
+  // If no space is found, capitalize the entire string and return
+  return userDisease[0].toUpperCase() + userDisease.substring(1);
+}
+
 }

@@ -4,7 +4,7 @@
             "outputFile": "com.example.medipal.app-mergeDebugResources-12:/values-iw/values-iw.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\vinji\\.gradle\\caches\\transforms-3\\bf7a3ac1e0e5c035cce43f602f8f8814\\transformed\\jetified-play-services-base-18.0.1\\res\\values-iw\\values.xml",
+                    "source": "C:\\Users\\vinji\\.gradle\\caches\\transforms-3\\78a7d5ccf9a25bbc1ec0ff008f1adf21\\transformed\\jetified-play-services-base-18.0.1\\res\\values-iw\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\vinji\\.gradle\\caches\\transforms-3\\73bd5abb85e4f42d0145682b290e7759\\transformed\\jetified-play-services-basement-18.1.0\\res\\values-iw\\values.xml",
+                    "source": "C:\\Users\\vinji\\.gradle\\caches\\transforms-3\\4a51a051b7ebd4d336114a84058f601e\\transformed\\jetified-play-services-basement-18.1.0\\res\\values-iw\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\vinji\\.gradle\\caches\\transforms-3\\b265adeb376a3ac6007e3dd20039106a\\transformed\\core-1.6.0\\res\\values-iw\\values-iw.xml",
+                    "source": "C:\\Users\\vinji\\.gradle\\caches\\transforms-3\\4e7f9690383d26d26133e30bd361248d\\transformed\\core-1.6.0\\res\\values-iw\\values-iw.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

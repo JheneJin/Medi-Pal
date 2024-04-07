@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'diseaseInfo.dart';
 
 class InputScreen extends StatefulWidget {
+  final String userEmail = "a@gmail.com";
   @override
   //initializes the state for InputScreenState
   _InputScreenState createState() => _InputScreenState();
@@ -22,9 +23,7 @@ class _InputScreenState extends State<InputScreen> {
     if (_inputValue.isNotEmpty) {
       //add thhe users input to firestore with a timestamp
       //userInput is the collection name
-
-
-      _firestore.collection("userInput").add({
+      _firestore.collection("users").add({
         //set inputValue to be saved in userInput collection
         "input": _inputValue,
         //set the timestamp in firestore when input is collected

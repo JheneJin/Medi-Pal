@@ -14,7 +14,7 @@ class FirebaseUserRepository implements UserRepository {
     }) : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   final FirebaseAuth _firebaseAuth;
-  final usersCollection = FirebaseFirestore.instance.collection('registered users');
+  final usersCollection = FirebaseFirestore.instance.collection('users');
 
   //stream of [MyUser] emits the current user when the authentication state changes
   @override
@@ -99,6 +99,12 @@ class FirebaseUserRepository implements UserRepository {
       log(e.toString());
 			rethrow;
     }
+  }
+
+  @override
+  Future<bool> isLoggedIn() async{
+    final currentUser = _firebaseAuth.currentUser;
+    return currentUser != null;
   }
   
 }

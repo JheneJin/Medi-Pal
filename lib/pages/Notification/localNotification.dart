@@ -9,8 +9,6 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import '../Schedule/event.dart';
-import 'notification.dart';
-import 'notification_details.dart';
 
 class LocalNotifications {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -26,7 +24,7 @@ class LocalNotifications {
       //currentState.handleTapNotification();
       // Event event = Event.deserialize(notificationResponse.payload!);
       navigationService.navigatorKey.currentState?.push(
-        MaterialPageRoute(builder: (_) => StartApp())
+        MaterialPageRoute(builder: (_) => const StartApp())
       );
     }
   }
@@ -41,7 +39,7 @@ class LocalNotifications {
         AndroidInitializationSettings('@drawable/ic_noti');
     final DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings(
-      onDidReceiveLocalNotification: (id, title, body, payload) => null,
+      onDidReceiveLocalNotification: (id, title, body, payload) {},
     );
     final InitializationSettings initializationSettings =
         InitializationSettings(

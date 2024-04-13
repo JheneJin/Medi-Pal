@@ -8,7 +8,6 @@ import 'package:timezone/data/latest.dart' as tz;
 
 import '../../firebase/services.dart';
 import '../Notification/localNotification.dart';
-import '../Notification/notification_details.dart';
 import 'event.dart';
 
 class MedicationSchedule extends StatefulWidget {
@@ -290,6 +289,7 @@ class _MedicationScheduleState extends State<MedicationSchedule>
                       height: 6.0,
                     ));
               }
+              return null;
             }, singleMarkerBuilder: (context, date, event) {
               return Container(
                 alignment: Alignment.center,
@@ -319,6 +319,7 @@ class _MedicationScheduleState extends State<MedicationSchedule>
                       ),
                     ));
               }
+              return null;
             }, headerTitleBuilder: (context, focusedDay) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -415,7 +416,7 @@ class _MedicationScheduleState extends State<MedicationSchedule>
                                 '${value[index].getMedicine()}\n'
                                 '${DateFormat('MM.dd.yy').format(value[index].getDateTime())}\n'
                                 '${value[index].getTime(context)}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   height:
                                       1.5, // Adjust line spacing to preference
                                 ),

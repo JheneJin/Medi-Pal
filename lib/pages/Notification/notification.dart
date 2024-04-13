@@ -51,10 +51,10 @@ class NotificationsState extends State<Notifications> {
 
               // Show a snackbar! This snackbar could also contain "Undo" actions.
               ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text('Reminder dismissed')));
+                  .showSnackBar(const SnackBar(content: Text('Reminder dismissed')));
             },
             child: Card(
-              margin: EdgeInsets.all(8.0),
+              margin: const EdgeInsets.all(8.0),
               child: ListTile(
                 title: Text('Medicine Reminder at ${event.getTime(context)}'),
                 subtitle: Text("It's time to take ${event.medicine}."),
@@ -66,7 +66,7 @@ class NotificationsState extends State<Notifications> {
             )
           );
         },
-        separatorBuilder: (context, index) => Divider(),
+        separatorBuilder: (context, index) => const Divider(),
       ),
       /*body: ListView.builder(
         itemCount: events.length,

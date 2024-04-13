@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,11 +6,10 @@ import 'package:medipal/components/drawer/NavigationItem.dart';
 
 import '../../blocs/log_in_bloc/log_in_bloc.dart';
 import '../Notification/localNotification.dart';
-import '../Schedule/event.dart';
 
 /* Start page contains navigation bars*/
 class StartApp extends StatefulWidget {
-  StartApp({super.key});
+  const StartApp({super.key});
 
   @override
   State<StatefulWidget> createState() => StartAppState();
@@ -119,11 +117,11 @@ class StartAppState extends State<StartApp> {
           title: currentIndex == -1
               ? Text(
                   NavigationItem.items[currentIndexSide].title,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
                 )
               : Text(
                   NavigationItem.items[currentIndex].title,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
                 ),
           backgroundColor: Theme.of(context).primaryColor,
           leading: Builder(

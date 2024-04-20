@@ -33,7 +33,7 @@ class NavigationItem {
             title: 'Notifications'),
         // 3
         NavigationItem(
-            page: Profile(),
+            page: Profile(email: ""),
             icon: Icon(UniconsLine.user_circle),
             title: 'Profile'),
         // 4

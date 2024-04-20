@@ -54,7 +54,12 @@ class _InputScreenState extends State<InputScreen> {
               const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
-                  _saveDisease();
+                  Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DiseaseInfoScreen(userDisease: _inputValue),
+          ),
+        );
                 },
                 child: const Text("Next"),
               ),

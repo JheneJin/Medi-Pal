@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../../sharedPref.dart';
 
 import 'diseaseInfo.dart';
 
 class InputScreen extends StatefulWidget {
-  final String userEmail;
+  final String? email;
 
-  const InputScreen({Key? key, required this.userEmail}) : super(key: key);
+  const InputScreen({Key? key, required this.email}) : super(key: key);
 
   @override
   _InputScreenState createState() => _InputScreenState();
@@ -54,6 +55,7 @@ class _InputScreenState extends State<InputScreen> {
               const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
+                  _saveDisease();
                   Navigator.push(
           context,
           MaterialPageRoute(
@@ -71,20 +73,23 @@ class _InputScreenState extends State<InputScreen> {
   }
 
   void _saveDisease() {
-    if (_inputValue.isNotEmpty) {
-      FirebaseFirestore.instance.collection("users").doc(widget.userEmail).set({
-        "diseases": _inputValue,
+  if (_inputValue.isNotEmpty) {
+    FirebaseFirestore.instance.collection("users").doc(widget.email).set(
+      {
+        "userDisease": _inputValue,
         "timestamp": DateTime.now(),
-      }).then((value) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DiseaseInfoScreen(userDisease: _inputValue),
-          ),
-        );
-      }).catchError((error) {
-        print("Failed to save input: $error");
-      });
-    }
+      },
+      SetOptions(merge: true), // Merge with existing data
+    ).then((value) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DiseaseInfoScreen(userDisease: _inputValue),
+        ),
+      );
+    }).catchError((error) {
+      print("Failed to save input: $error");
+    });
   }
+}
 }

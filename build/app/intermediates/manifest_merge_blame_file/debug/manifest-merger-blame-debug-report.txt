@@ -250,31 +250,31 @@
 156            </intent-filter>
 157        </activity>
 158
-159        <provider
-159-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:23:9-28:39
-160            android:name="com.google.firebase.provider.FirebaseInitProvider"
-160-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:24:13-77
-161            android:authorities="com.example.medipal.firebaseinitprovider"
-161-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:25:13-72
-162            android:directBootAware="true"
-162-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:26:13-43
-163            android:exported="false"
-163-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:27:13-37
-164            android:initOrder="100" />
-164-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:28:13-36
+159        <uses-library
+159-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+160            android:name="androidx.window.extensions"
+160-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+161            android:required="false" />
+161-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+162        <uses-library
+162-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+163            android:name="androidx.window.sidecar"
+163-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+164            android:required="false" />
+164-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
 165
-166        <uses-library
-166-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
-167            android:name="androidx.window.extensions"
-167-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
-168            android:required="false" />
-168-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
-169        <uses-library
-169-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
-170            android:name="androidx.window.sidecar"
-170-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
-171            android:required="false" />
-171-->[androidx.window:window:1.0.0-beta04] C:\Users\vinji\.gradle\caches\transforms-3\905370d3dab651637b8835e89c66cd73\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+166        <provider
+166-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:23:9-28:39
+167            android:name="com.google.firebase.provider.FirebaseInitProvider"
+167-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:24:13-77
+168            android:authorities="com.example.medipal.firebaseinitprovider"
+168-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:25:13-72
+169            android:directBootAware="true"
+169-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:26:13-43
+170            android:exported="false"
+170-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:27:13-37
+171            android:initOrder="100" />
+171-->[com.google.firebase:firebase-common:20.4.2] C:\Users\vinji\.gradle\caches\transforms-3\308e0496f10b715b143079bb29a8610e\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:28:13-36
 172
 173        <activity
 173-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\vinji\.gradle\caches\transforms-3\19e1f3b8793d94c8974fa2945c736a9b\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45

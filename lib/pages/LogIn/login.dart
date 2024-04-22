@@ -5,7 +5,9 @@ import 'package:unicons/unicons.dart';
 import '../../blocs/log_in_bloc/log_in_bloc.dart';
 import '../../components/my_text_field.dart';
 import '../../components/strings.dart';
-import '../Profile/profile.dart'; 
+import '../Profile/profilescreen.dart'; 
+import '../../components/drawer/NavigationItem.dart';
+import '../../sharedPref.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key,}) : super(key: key);
@@ -30,12 +32,8 @@ class _LogInScreenState extends State<LogInScreen> {
     setState(() {
       logInRequired = false;
     });
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Profile(email: emailController.text),
-      ),
-    );
+    saveEmail(emailController.text);
+
   } else if (state is LogInProcess) {
     setState(() {
       logInRequired = true;

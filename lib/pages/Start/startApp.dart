@@ -1,16 +1,12 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unicons/unicons.dart';
-import 'package:medipal/components/drawer/NavigationItem.dart';
-
-import '../../blocs/log_in_bloc/log_in_bloc.dart';
-import '../Notification/localNotification.dart';
-import '../Schedule/event.dart';
+import '../../components/drawer/NavigationItem.dart';
 
 /* Start page contains navigation bars*/
 class StartApp extends StatefulWidget {
+  /*int selectedIndex = 0;
+  int selectedIndex_side  = 3;*/
+
   StartApp({super.key});
 
   @override
@@ -27,28 +23,6 @@ class StartAppState extends State<StartApp> {
 
   LastTappedBar? _lastTappedBar; // Check if the current tap is bottom or side
 
-  @override
-  void initState(){
-    super.initState();
-    listenToNotification();
-
-  }
-
-  // Listen to any notification clicked or not
-  listenToNotification() {
-    LocalNotifications.onClickNotification.stream.listen((String event) {
-      // Event _event = Event.deserialize(event);
-      _handleTapNotification();
-
-    });
-  }
-
-  // Handle on tap notification by setting current state
-  void _handleTapNotification(){
-    setState(() {
-      currentIndex = 2; // Index of notification page
-    });
-  }
   // Set the index of the bottom bar
   void _onItemTappedBottom(int index) {
     setState(() {
@@ -69,11 +43,6 @@ class StartAppState extends State<StartApp> {
     });
   }
 
-  void handleTapNotification(){
-    setState(() {
-      currentIndex = 3;
-    });
-  }
   // Header (profile feature) of the side bar
   Widget barHeader(BuildContext context) => IconButton(
         icon: const Icon(UniconsLine.user_circle, size: 50),
@@ -115,16 +84,8 @@ class StartAppState extends State<StartApp> {
         EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top);
     return Scaffold(
         key: _scaffoldKey,
+        //drawer: SideMenu(),
         appBar: AppBar(
-          title: currentIndex == -1
-              ? Text(
-                  NavigationItem.items[currentIndexSide].title,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                )
-              : Text(
-                  NavigationItem.items[currentIndex].title,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
           backgroundColor: Theme.of(context).primaryColor,
           leading: Builder(
             builder: (BuildContext context) {
@@ -140,16 +101,6 @@ class StartAppState extends State<StartApp> {
               );
             },
           ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  context.read<LogInBloc>().add(const LogOutRequired());
-                },
-                icon: Icon(
-                  UniconsLine.x,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ))
-          ],
         ),
         drawer: SizedBox(
             width: MediaQuery.of(context).size.width * 0.2,

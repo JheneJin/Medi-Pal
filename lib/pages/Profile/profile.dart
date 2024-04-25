@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../pages/HealthAssessment/inputScreen.dart';
 import '../../pages/medicineDisplay/medicineInfo.dart';
 import '../../pages/Profile/profileScreen.dart';
+import '../../pages/Profile/profileInput.dart';
 import '../../sharedPref.dart';
 
 
@@ -53,6 +54,22 @@ class _ProfileState extends State<Profile> {
               },
               child: Text(
                 'Profile',
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileInput(email: email),
+                  ),
+                );
+              },
+              child: Text(
+                'Profile Input',
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
                   color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),

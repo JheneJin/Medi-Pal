@@ -23,6 +23,7 @@ class MyAppView extends StatelessWidget {
             navigatorKey: navigationService.navigatorKey,
             /*initialRoute: '/',
 			routes: {'/': (context) => LoginS,}*/
+            
             debugShowCheckedModeBanner: false,
             theme: state.themeData,
             home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -62,6 +63,7 @@ class MyAppView extends StatelessWidget {
               }
             }),
           );
-        }));
+        }),);
+
   }
 }

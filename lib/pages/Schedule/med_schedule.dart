@@ -6,6 +6,7 @@ import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:intl/intl.dart';
 import 'package:medipal/pages/Schedule/dose.dart';
+import 'package:medipal/pages/Schedule/waterRemind.dart';
 import 'package:notification_repository/notification_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:unicons/unicons.dart';
@@ -657,7 +658,8 @@ class _MedicationScheduleState extends State<MedicationSchedule>
                                 // Medicine Reminder
                                 addReminder(context, 'New Reminder', 'Add', -1);
                               } else { // water mode
-
+                                print('WATER MODE');
+                                setWater(context);
                               }
                             } else {
                               // Show deleted message

@@ -1,13 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_notification/bloc_notification.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:medipal/pages/Notification/localNotification.dart';
-import 'package:meta/meta.dart';
 import 'package:notification_repository/notification_repository.dart';
-import 'package:uuid/uuid.dart';
 
 part 'notification_event.dart';
 part 'notification_state.dart';

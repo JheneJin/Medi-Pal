@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class ProfileInput extends StatefulWidget {
   final Future<String?> email;
@@ -11,26 +12,28 @@ class ProfileInput extends StatefulWidget {
 }
 
 class _ProfileInputState extends State<ProfileInput> {
+  //initialize input first
   late String _birthday = "";
   late String _height = "Select Your Height";
   late String _weight = "";
+  late Future<String?> _userEmail;
   List<String> _heightOptions = ["4'8", "4'9", "4'10", "4'11", "5'0", "5'1", "5'2", "5'3", "5'4", "5'5", "5'6",
     "5'7", "5'8", "5'9", "5'10", "5'11", "6'0", "6'1", "6'2", "6'3", "6'4", "6'5", "6'6", "6'7", "6'8", "6'9", "6'10"];
 
+  //initalize state first to get email
   @override
   void initState() {
     super.initState();
     _userEmail = widget.email;
   }
 
-  late Future<String?> _userEmail;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profile Input"),
-      ),
+        ),
       body: FutureBuilder<String?>(
         future: _userEmail,
         builder: (context, snapshot) {
@@ -46,10 +49,14 @@ class _ProfileInputState extends State<ProfileInput> {
     );
   }
 
-  Widget _buildProfileInput(String? email) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
+Widget _buildProfileInput(String? email) {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  return Center(
+    child: Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Form(
+        key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -62,6 +69,7 @@ class _ProfileInputState extends State<ProfileInput> {
               ),
             ),
             const SizedBox(height: 20.0),
+            //call select Date function here
             TextButton(
               onPressed: () {
                 _selectDate(context);
@@ -76,6 +84,7 @@ class _ProfileInputState extends State<ProfileInput> {
               ),
             ),
             const SizedBox(height: 22.0),
+            //when user clicks a date to be selected it will be initialized to height
             DropdownButtonFormField<String>(
               value: _height,
               onChanged: (value) {
@@ -84,28 +93,23 @@ class _ProfileInputState extends State<ProfileInput> {
                 });
               },
               items: [
+                //create menu from height arr
                 DropdownMenuItem<String>(
                   value: "Select Your Height",
                   child: Text("Select Your Height"),
                 ),
+                //list each element of the array for the menu
                 ..._heightOptions.map((String heightOption) {
                   return DropdownMenuItem<String>(
                     value: heightOption,
                     child: Text(heightOption),
                   );
-                }).toList(),
+                }),
               ],
-              // decoration: const InputDecoration(
-              //   labelText: "Select your Height:",
-              //   labelStyle: TextStyle(
-              //     fontSize: 20,
-              //     fontStyle: FontStyle.italic,
-              //     color: Colors.black,
-              //   ),
-              // ),
             ),
+            //enter weight here
             const SizedBox(height: 20.0),
-            TextField(
+            TextFormField(
               onChanged: (value) {
                 _weight = value;
               },
@@ -117,50 +121,84 @@ class _ProfileInputState extends State<ProfileInput> {
                   color: Colors.black,
                 ),
               ),
+              keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value != null && int.tryParse(value) == null) {
+                  return 'Please enter a valid integer weight';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
-                _saveProfile(email);
+                //validate the form before calling _saveProfile
+                if (_formKey.currentState!.validate()) {
+                  _saveProfile(email);
+                }
               },
               child: const Text("Next"),
             ),
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
-    if (picked != null) {
-      setState(() {
-        _birthday = picked.toString();
-      });
-    }
-  }
 
-  void _saveProfile(String? email) {
-    if (_birthday.isNotEmpty && _height != "Select Your Height" && _weight.isNotEmpty) {
+ //produces calendar for user to select their birthday
+Future<void> _selectDate(BuildContext context) async {
+  final DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(1900),
+    lastDate: DateTime.now(),
+  );
+  if (picked != null) {
+    //format the picked date without the time part
+    String formattedDate = DateFormat('MM-dd-yyyy').format(picked);
+    
+    setState(() {
+      _birthday = formattedDate; //set the formatted date
+    });
+  }
+}
+  
+//function to save user profile
+void _saveProfile(String? email) {
+  if (_birthday.isNotEmpty && _height != "Select Your Height" && _weight.isNotEmpty) {
+    //check if the weight is a valid integer
+    int? weightInt = int.tryParse(_weight);
+    if (weightInt != null) {
       FirebaseFirestore.instance.collection("users").doc(email).set(
         {
-          "Birthday": _birthday,
-          "Height": _height,
-          "Weight": _weight,
+          "birthday": _birthday,
+          "height": _height,
+          "weight": weightInt,
         },
-        SetOptions(merge: true), // Merge with existing data
+        //initializes birthday, height, weight for all variables, so duplicates can't exist
+        SetOptions(merge: true),
       ).then((value) {
-        // Success
+        //displays to user when they are done inputting
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Information uploaded successfully'),
+            backgroundColor: Colors.green,
+          ),
+        );
       }).catchError((error) {
+        //anhdle error
         print("Failed to save profile: $error");
       });
     } else {
-      print("Please fill in all fields");
+      //handle invalid weight input
+      print("Please enter a valid integer weight");
     }
+  } else {
+    print("Please fill in all fields");
   }
+}
+
+
 }

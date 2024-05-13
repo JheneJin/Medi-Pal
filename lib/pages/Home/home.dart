@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../../pages/HealthAssessment/inputScreen.dart';
 import '../../pages/medicineDisplay/medicineInfo.dart';
 import '../../sharedPref.dart';
-
+import '../../pages/dietScreen.dart'; // Import DietScreen
+import '../../pages/Calorie Calculator/tracking.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -39,6 +40,7 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 20),
+            // Button to navigate to Health Assessment screen
             TextButton(
               onPressed: () {
                 Navigator.push(
@@ -56,6 +58,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(height: 20),
+            // Button to navigate to Medicine screen
             TextButton(
               onPressed: () {
                 Navigator.push(
@@ -67,6 +70,42 @@ class _HomeState extends State<Home> {
               },
               child: Text(
                 "Medicine",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            // Button to navigate to Calorie Calculator screen
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CalorieCalculatorScreen(),
+                  ),
+                );
+              },
+              child: Text(
+                "Calorie Calculator", 
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            // Button to navigate to Diet Screen
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DietScreen(),
+                  ),
+                );
+              },
+              child: Text(
+                "Diet Screen", 
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),

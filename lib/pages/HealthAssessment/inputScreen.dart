@@ -54,14 +54,8 @@ class _InputScreenState extends State<InputScreen> {
               ),
               const SizedBox(height: 20.0),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () {//calls save disease function here and navigates to another screen
                   _saveDisease();
-                  Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DiseaseInfoScreen(userDisease: _inputValue),
-          ),
-        );
                 },
                 child: const Text("Next"),
               ),
@@ -72,15 +66,17 @@ class _InputScreenState extends State<InputScreen> {
     );
   }
 
+  //saves disease into firestore
   void _saveDisease() {
   if (_inputValue.isNotEmpty) {
+
     FirebaseFirestore.instance.collection("users").doc(widget.email).set(
       {
         "userDisease": _inputValue,
-        "timestamp": DateTime.now(),
       },
-      SetOptions(merge: true), // Merge with existing data
+      SetOptions(merge: true), 
     ).then((value) {
+      //pushes into diseaseInfo Screen after and passes userDisease too
       Navigator.push(
         context,
         MaterialPageRoute(

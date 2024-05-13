@@ -24,52 +24,38 @@ class _InputScreenState extends State<InputScreen> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Hello name !",
+              const Text(
+                "Hello New User! To use this app to the utmost effectiveness, completing the health assessment is highly recommended.",
                 style: TextStyle(
                   fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onBackground,
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              Text(
-                "To use Medi-Pal and its features to the utmost effectiveness, we recommend completing the health assessment:",
-                style: TextStyle(
-                  fontSize: 16,
                   fontStyle: FontStyle.italic,
-                  color: Theme.of(context).colorScheme.onBackground,
+                  color: Colors.black,
                 ),
               ),
-              const SizedBox(height: 80.0),
+              const SizedBox(height: 20.0),
               TextField(
                 onChanged: (value) {
                   setState(() {
                     _inputValue = value;
                   });
                 },
-                decoration: InputDecoration(
-                  labelText: "ENTER DISEASE:",
+                decoration: const InputDecoration(
+                  labelText: "Enter any Diseases you may have:",
                   labelStyle: TextStyle(
-                    fontSize: 18,
-                    color: Theme.of(context).colorScheme.tertiary,
+                    fontSize: 20,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.black,
                   ),
                 ),
               ),
               const SizedBox(height: 20.0),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () {//calls save disease function here and navigates to another screen
                   _saveDisease();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DiseaseInfoScreen(userDisease: _inputValue),
-                    ),
-                  );
                 },
                 child: const Text("Next"),
               ),
@@ -80,15 +66,17 @@ class _InputScreenState extends State<InputScreen> {
     );
   }
 
+  //saves disease into firestore
   void _saveDisease() {
   if (_inputValue.isNotEmpty) {
+
     FirebaseFirestore.instance.collection("users").doc(widget.email).set(
       {
         "userDisease": _inputValue,
-        "timestamp": DateTime.now(),
       },
-      SetOptions(merge: true), // Merge with existing data
+      SetOptions(merge: true), 
     ).then((value) {
+      //pushes into diseaseInfo Screen after and passes userDisease too
       Navigator.push(
         context,
         MaterialPageRoute(

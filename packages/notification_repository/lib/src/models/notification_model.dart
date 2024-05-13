@@ -20,19 +20,13 @@ abstract class Event extends Equatable {
 
   int getHash() => hash;
 
-  String getTime(context){
+  String getTime(context) {
     return time.format(context);
   }
 
   DateTime getDateTime() {
     return DateTime(
-        date.year,
-        date.month,
-        date.day,
-        time.hour,
-        time.minute,
-        date.second
-    );
+        date.year, date.month, date.day, time.hour, time.minute, date.second);
   }
 
   Map<String, dynamic> toJson();
@@ -103,12 +97,18 @@ class MedicineReminder extends Event {
 }
 
 class WaterReminder extends Event {
-  final int amount; // in milliliters
+  final int amount; // in ounces
+  final int frequency;
+  final TimeOfDay wakeUpTime;
+  final TimeOfDay sleepTime;
 
   WaterReminder({
     required this.amount,
     required DateTime date,
     required TimeOfDay time,
+    required this.frequency,
+    required this.wakeUpTime,
+    required this.sleepTime,
     String? id,
   }) : super(date: date, time: time, id: id);
 
@@ -119,9 +119,12 @@ class WaterReminder extends Event {
   Map<String, dynamic> toJson() => {
         'type': 'water',
         'id': id,
+        'frequency': frequency,
         'amount': amount,
         'date': date.toIso8601String(),
         'time': '${time.hour}:${time.minute}',
+        'wakeUpTime': '${wakeUpTime.hour}:${wakeUpTime.minute}',
+        'sleepTime': '${sleepTime.hour}:${sleepTime.minute}'
       };
 
   String getTitle() => 'Water Reminder';
@@ -133,8 +136,11 @@ class WaterReminder extends Event {
     return WaterReminder(
       id: data['id'],
       amount: data['amount'],
+      frequency: data['frequency'],
       date: DateTime.parse(data['date']),
       time: Event.timeFromString(data['time']),
+      wakeUpTime: Event.timeFromString(data['wakeUpTime']),
+      sleepTime: Event.timeFromString(data['sleepTime']),
     );
   }
 }

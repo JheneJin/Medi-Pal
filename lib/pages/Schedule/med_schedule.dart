@@ -59,6 +59,9 @@ class _MedicationScheduleState extends State<MedicationSchedule>
 
   // Water Reminder
   bool waterMode = false;
+  TimeOfDay startTime = TimeOfDay(hour: 8, minute: 0); // Start drinking at 8 AM
+  int waterGoal = 64; //  default value
+  double frequency = 3;
 
   @override
   void initState() {
@@ -223,6 +226,66 @@ class _MedicationScheduleState extends State<MedicationSchedule>
   void loadMedNames() async {
     List<String> names = await medService.getMedicineNames();
     medList = names;
+  }
+
+  void setWater(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => SetWaterGoalDialog(
+        defaultWaterGoalIntake: waterGoal,
+        initialFrequency: frequency,
+        date: _selectedDay!,
+        onFrequencyChanged: (newFrequency, newReminders) {
+          setState(() {
+            for (Event reminder in newReminders) {
+              DateTime dateKey = getNormalizedDate(_selectedDay!);
+              if (events.containsKey(dateKey)) {
+                events[dateKey]!.add(reminder);
+              } else {
+                events[dateKey] = [reminder];
+              }
+
+              print('Events after add water: $events');
+            }
+            frequency = newFrequency;
+            _selectedEvents.value = getEventsForDay(_selectedDay!);
+          });
+        },
+      ),
+    );
+  }
+
+  void resetWaterReminderForDay(DateTime selectedDay) {
+    DateTime normalizedSelectedDay = getNormalizedDate(selectedDay);
+
+    // Check if there are events for that day and if any are WaterReminder.
+    if (events.containsKey(normalizedSelectedDay)) {
+      List<Event> dayEvents = events[normalizedSelectedDay]!;
+      List<int> waterRemindersHashs = dayEvents
+          .where((event) => event is WaterReminder)
+          .map((waterReminder) => waterReminder
+              .getHash()) // Ensure each WaterReminder has a unique hash/ID.
+          .toList();
+      print('HASH TO REMOVE');
+      // Cancel each notification for water reminders
+      for (int hash in waterRemindersHashs) {
+        print(hash);
+        LocalNotifications.cancel(hash);
+      }
+      // Remove all WaterReminder instances from the events list for this day.
+      events[normalizedSelectedDay]!
+          .removeWhere((event) => event is WaterReminder);
+
+      // Optionally, update the state to reflect changes in the UI.
+      setState(() {
+        _selectedEvents.value = getEventsForDay(normalizedSelectedDay);
+      });
+
+      // Log or display a message about the action taken.
+      print('Water reminders reset for $normalizedSelectedDay.');
+    } else {
+      print('No water reminders to reset for $normalizedSelectedDay.');
+    }
   }
 
   void addReminder(
@@ -654,12 +717,59 @@ class _MedicationScheduleState extends State<MedicationSchedule>
 
                             if (selected.isAfter(thisMoment) ||
                                 selected.isAtSameMomentAs(thisMoment)) {
-                              if (waterMode == false) { // medicine mode
+                              if (waterMode == false) {
+                                // medicine mode
                                 // Medicine Reminder
                                 addReminder(context, 'New Reminder', 'Add', -1);
-                              } else { // water mode
+                              } else {
+                                // water mode
                                 print('WATER MODE');
-                                setWater(context);
+                                DateTime normalizeSelectedDay =
+                                    getNormalizedDate(_selectedDay!);
+                                if (events.containsKey(normalizeSelectedDay)) {
+                                  // Retrieve the list of events for the selected day.
+                                  List<Event> dayEvents =
+                                      events[normalizeSelectedDay]!;
+
+                                  // Check if there is any WaterReminder in the list of events for this day.
+                                  bool hasWaterReminder = dayEvents
+                                      .any((event) => event is WaterReminder);
+
+                                  if (hasWaterReminder) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title:
+                                            const Text('Reset Water Reminder'),
+                                        content: const Text(
+                                            'Are you sure you want to reset the water reminder for this day?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () => Navigator.of(
+                                                    context)
+                                                .pop(), // Close the dialog without any action.
+                                            child: const Text('Cancel'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              resetWaterReminderForDay(
+                                                  _selectedDay!);
+                                              setWater(context);
+                                              Navigator.of(context)
+                                                  .pop();
+                                              Navigator.of(context)
+                                                  .pop();// Close the dialog after performing the action.
+                                            },
+                                            child: const Text('Reset'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    setWater(context);
+                                    //Navigator.of(context).pop();
+                                  }
+                                }
                               }
                             } else {
                               // Show deleted message
@@ -718,10 +828,19 @@ class _MedicationScheduleState extends State<MedicationSchedule>
             child: ValueListenableBuilder(
                 valueListenable: _selectedEvents,
                 builder: (context, value, _) {
+                  print('THIS IS VALUE LISTENER IN BUILDER');
+                  print('$_selectedEvents');
+                  // Filter events based on waterMode
+                  List<Event> filteredEvents = waterMode
+                      ? value.where((event) => event is WaterReminder).toList()
+                      : value
+                          .where((event) => event is MedicineReminder)
+                          .toList();
+
                   return ListView.builder(
-                      itemCount: value.length,
+                      itemCount: filteredEvents.length,
                       itemBuilder: (context, index) {
-                        String id = value[index].getID();
+                        String id = filteredEvents[index].getID();
                         DateTime date = getNormalizedDate(value[index].date);
                         return Dismissible(
                             key: Key(id),
@@ -744,12 +863,15 @@ class _MedicationScheduleState extends State<MedicationSchedule>
                                                   text:
                                                       "Are you sure you want to delete the reminder for "),
                                               TextSpan(
-                                                text: value[index]
+                                                text: filteredEvents[index]
                                                         is MedicineReminder
-                                                    ? (value[index]
+                                                    ? (filteredEvents[index]
                                                             as MedicineReminder)
                                                         .medicine
-                                                    : 'not medicine',
+                                                    : (filteredEvents[index]
+                                                            is WaterReminder)
+                                                        ? 'water intake'
+                                                        : 'event',
                                                 style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -777,7 +899,7 @@ class _MedicationScheduleState extends State<MedicationSchedule>
                                   false; // Return false if the user cancels
                             },
                             onDismissed: (direction) {
-                              Event removeEvent = value[index];
+                              Event removeEvent = filteredEvents[index];
                               deleteRedminer(context, date, removeEvent);
 
                               // Cancel the reminder in notification
@@ -819,12 +941,18 @@ class _MedicationScheduleState extends State<MedicationSchedule>
                                           'dose = ${(value[index] as MedicineReminder).dose}');
                                     },
                                     leading: Icon(
-                                        MedicineFormHelper.getIconByDose(
-                                            (value[index] as MedicineReminder)
-                                                .dose),
+                                        filteredEvents[index]
+                                                is MedicineReminder
+                                            ? MedicineFormHelper.getIconByDose(
+                                                (filteredEvents[index]
+                                                        as MedicineReminder)
+                                                    .dose)
+                                            : UniconsLine.tear,
                                         size: 30.0),
                                     title: Text(
-                                      '${(value[index] as MedicineReminder).getMedicine()}',
+                                      filteredEvents[index] is MedicineReminder
+                                          ? '${(filteredEvents[index] as MedicineReminder).getMedicine()}'
+                                          : 'Drink ${(filteredEvents[index] as WaterReminder).amount} ounces',
                                       style: const TextStyle(
                                         fontSize: 16.0,
                                         height:

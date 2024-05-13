@@ -163,6 +163,7 @@ class LocalNotifications {
     await flutterLocalNotificationsPlugin.pendingNotificationRequests();
     for (var _pendingRequest in pendingNotificationRequests) {
       if (_pendingRequest.id == id){
+        print(_pendingRequest.id);
         flutterLocalNotificationsPlugin.cancel(_pendingRequest.id);
       }
     }

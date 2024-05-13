@@ -755,10 +755,9 @@ class _MedicationScheduleState extends State<MedicationSchedule>
                                               resetWaterReminderForDay(
                                                   _selectedDay!);
                                               setWater(context);
+                                              Navigator.of(context).pop();
                                               Navigator.of(context)
-                                                  .pop();
-                                              Navigator.of(context)
-                                                  .pop();// Close the dialog after performing the action.
+                                                  .pop(); // Close the dialog after performing the action.
                                             },
                                             child: const Text('Reset'),
                                           ),
@@ -769,6 +768,8 @@ class _MedicationScheduleState extends State<MedicationSchedule>
                                     setWater(context);
                                     //Navigator.of(context).pop();
                                   }
+                                } else {
+                                  setWater(context);
                                 }
                               }
                             } else {
